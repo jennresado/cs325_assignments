@@ -1,0 +1,29 @@
+making_change(V, A)
+		# input: make change for an amount A with as few coins as possible
+		#           array V where V[i] is the value of the coin of the ith denomination
+		#           V = [v1 = 1, < v2 < v3 … < vn]
+# return: array C where C[i] is the number of coins of value V[i] to return as        #           change
+#           m the minimum number of coins it took
+
+let m = 0 be the minimum number of coins to make the change  (1)
+let c = [] be a new array
+		c[0] = A / v[0]  # since v1 = 1 so it will take A/1 coins 
+		
+# loop through each coin value, coin(i)
+# if there is enough coin(i-1) that will make coin(i), trade up and update
+# calculate num of coin(i) it will take to make A
+
+for i = 1 to length(v) - 1:  # looping values O(n)
+	prev = i - 1  # previous coin denomination
+	count = 0
+	if  v[i] <= c[prev] * v[prev]:  # count of coin(j) * coin(j) value  (1)
+		sum = (c[prev] * v[prev])
+		count = sum // v[i]
+		c[prev] = (sum - count) / v[prev]   # update coin(j) count after trading up
+	c[i] = count
+
+# count number of coins
+for i in c:  O(n)
+	m += c[i]  (1)
+
+return c, m (1)
